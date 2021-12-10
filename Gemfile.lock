@@ -1,5 +1,4 @@
-bundle lock
-  --add-platform x86_64-linux
+
 PATH
   remote: .
   specs:
@@ -12,6 +11,8 @@ PATH
       jekyll-sitemap (~> 1.4)
 
 GEM
+  bundle lock
+    --add-platform x86_64-linux
   remote: https://gems.ruby-china.com/
   specs:
     addressable (2.8.0)
