@@ -177,9 +177,6 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
 
-<<<<<<< HEAD
 encoding: UTF-8
-=======
 # Outdated configuration warning
 outdated: '-- Missing configuration options! --'
->>>>>>> 0b29c03 (Add layout localization)
