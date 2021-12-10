@@ -1,3 +1,4 @@
+bundle lock --add-platform ruby
 PATH
   remote: .
   specs:
@@ -117,3 +118,5 @@ DEPENDENCIES
 
 BUNDLED WITH
    2.2.25
+
+
