@@ -3,45 +3,47 @@
 # Import the theme
 theme: jekyll-theme-chirpy
 
-# Only if your site type is GitHub Project sites and doesn't have a custom domain,
-# change below value to '/projectname'.
-baseurl: '/game-tech-post'
+# Change the following value to '/PROJECT_NAME' ONLY IF your site type is GitHub Pages Project sites
+# and doesn't have a custom domain.
+baseurl: ''
 
-# The language of the site layout › http://www.lingoes.net/en/translator/langcode.htm
-# Go to folder '_data/locales' to check the available language options
+# The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
+# If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
+# otherwise, the layout language will use the default value of 'en'.
 lang: en
 
-# The lang attribute of HTML › http://www.lingoes.net/en/translator/langcode.htm
-# We can specify a language different from the layout of the content.
-# If it is not assigned, the site will use the value of 'lang' instead.
-content_lang: ''
+# Additional parameters for datetime localization, optional. › https://github.com/iamkun/dayjs/tree/dev/src/locale
+prefer_datetime_locale:
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
 timezone: Asia/Shanghai
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
-# --------------------------
-title: Game-Tech-Post                          # the main title
+# ↓ --------------------------
 
-tagline: Focus on game develepment   # it will display as the sub-title
+title: Chirpy                          # the main title
+
+tagline: A text-focused Jekyll theme   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  游戏技术资料，游戏技术文档，Unity，LayaBox，ShaderBook，shaderLab
+  A minimal, portfolio, sidebar,
+  bootstrap Jekyll theme with responsive web design
+  and focuses on text presentation.
 
-# fill in the protocol & hostname for your site, e.g., 'https://username.github.io'n
-url: 'https://linkliu.github.io/game-tech-post'
-
-author: Link Liu                  # change to your full name
+# fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
+url: ''
 
 github:
-  username: linkliu             # change to your github username
+  username: github_username             # change to your github username
 
 twitter:
-  username: mucylulu_renhai            # change to your twitter username
+  username: twitter_username            # change to your twitter username
 
 social:
-  name: Link Liu                  # it will shows as the copyright owner in Footer
-  email: mucylulu@163.com             # change to your email address
+  # Change to your full name.
+  # It will be displayed as the default author of the posts and the copyright owner in the Footer
+  name: your_full_name
+  email: example@doamin.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/username      # change to your twitter homepage
@@ -54,12 +56,6 @@ google_site_verification:               # fill in to your verification string
 
 # ↑ --------------------------
 
-
-
-
-
-# Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Shanghai
 
 google_analytics:
   id:                 # fill in your Google Analytics ID
@@ -82,14 +78,14 @@ google_analytics:
 theme_mode:   # [light|dark]
 
 # The CDN endpoint for images.
-# After filling in, the image resource URL of posts and site avatar
-# will automatically add the CDN endpoint prefix.
+# Notice that once it is assigned, the CDN url
+# will be added to all image (site avatar & posts' images) paths starting with '/'
 #
-# Note: MUST remove it or replace with your CDN
-img_cdn: ''
+# e.g. 'https://cdn.com'
+img_cdn: 'https://cdn.jsdelivr.net/gh/cotes2020/chirpy-images@f4e0354b674f65a53b8917f0f786ed2956898cc1'
 
-avatar: https://linkliu.github.io/game-tech-post/assets/img/me.png   # the avatar on sidebar, support local or internet resources
-
+# the avatar on sidebar, support local or CORS resources
+avatar: '/commons/avatar.jpg'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
@@ -148,7 +144,6 @@ defaults:
     values:
       layout: page
       permalink: /:title/
-      dynamic_title: true    # Hide title in mobile screens.
 
 sass:
   style: compressed
@@ -171,7 +166,7 @@ exclude:
   - LICENSE
   - gulpfile.js
   - node_modules
-  - '*.json'
+  - package*.json
 
 jekyll-archives:
   enabled: [categories, tags]
@@ -181,7 +176,3 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
-
-encoding: UTF-8
-# Outdated configuration warning
-outdated: '-- Missing configuration options! --'
