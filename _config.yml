@@ -5,7 +5,7 @@ theme: jekyll-theme-chirpy
 
 # Change the following value to '/PROJECT_NAME' ONLY IF your site type is GitHub Pages Project sites
 # and doesn't have a custom domain.
-baseurl: ''
+baseurl: '/game-tech-post'
 
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
@@ -21,33 +21,33 @@ timezone: Asia/Shanghai
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Chirpy                          # the main title
+title: Game-Tech-Post                          # the main title
 
-tagline: A text-focused Jekyll theme   # it will display as the sub-title
+tagline: Focus on game develepment   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
-  A minimal, portfolio, sidebar,
-  bootstrap Jekyll theme with responsive web design
-  and focuses on text presentation.
+  游戏技术资料，游戏技术文档，Unity，LayaBox，ShaderBook，shaderLab
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: ''
+url: 'https://linkliu.github.io/game-tech-post'
+
+author: Link Liu                  # change to your full name
 
 github:
-  username: github_username             # change to your github username
+  username: linkliu             # change to your github username
 
 twitter:
-  username: twitter_username            # change to your twitter username
+  username: mucylulu_renhai            # change to your twitter username
 
 social:
   # Change to your full name.
   # It will be displayed as the default author of the posts and the copyright owner in the Footer
-  name: your_full_name
-  email: example@doamin.com             # change to your email address
+  name: Link Liu
+  email: mucylulu@163.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://twitter.com/username      # change to your twitter homepage
-    - https://github.com/username       # change to your github homepage
+    - https://twitter.com/mucylulu_renhai      # change to your twitter homepage
+    - https://linkliu.github.io/game-tech-post/       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
@@ -82,10 +82,10 @@ theme_mode:   # [light|dark]
 # will be added to all image (site avatar & posts' images) paths starting with '/'
 #
 # e.g. 'https://cdn.com'
-img_cdn: 'https://raw.githubusercontent.com/cotes2020/chirpy-images/main'
+img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: '/commons/avatar.jpg'
+avatar: 'https://linkliu.github.io/game-tech-post/assets/img/me.png'
 
 # boolean type, the global switch for ToC in posts.
 toc: true
@@ -105,7 +105,7 @@ comments:
     repo_id:
     category:
     category_id:
-    mapping:          # optional, default to 'pathname'
+    mapping:          # optional, default to 'pathname'encoding: UTF-8
     input_position:   # optional, default to 'bottom'
     lang:             # optional, default to the value of `site.lang`
 
@@ -183,11 +183,12 @@ exclude:
   - '*.gem'
   - '*.gemspec'
   - tools
+  - docs
   - README.md
   - LICENSE
   - gulpfile.js
   - node_modules
-  - package*.json
+  - '*.json'
 
 jekyll-archives:
   enabled: [categories, tags]
@@ -197,3 +198,5 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+encoding: UTF-8
