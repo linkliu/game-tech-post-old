@@ -188,6 +188,7 @@ exclude:
   - tools
   - docs
   - README.md
+  - CHANGELOG.md
   - LICENSE
   - gulpfile.js
   - node_modules
