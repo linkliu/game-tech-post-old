@@ -50,4 +50,4 @@ jobs:
             mv _site-rename _site
           fi
 
-          bash tools/release.sh
+          bash tools/deploy.sh
