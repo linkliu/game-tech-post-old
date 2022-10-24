@@ -47,12 +47,12 @@ tags: [Windows, powershell7, on-my-posh, 美化]
 
     - 安装oh-my-posh和posh-git   
     ``` shell 
-    Install-Module posh-git -Scope CurrentUser
-    Install-Module oh-my-posh -Scope CurrentUser
+    Install-Module posh-git -Scope AllUsers
+    Install-Module oh-my-posh -Scope AllUsers
     ```
     - 一些权限需要开启
     ``` shell
-    Install-Module -Name PSReadLine -AllowPrerelease -Scope CurrentUser -Force -SkipPublisherCheck
+    Install-Module -Name PSReadLine -AllowPrerelease -Scope AllUsers -Force -SkipPublisherCheck
     ```
 
     - 为powershell创建一个配置文件
@@ -78,7 +78,13 @@ tags: [Windows, powershell7, on-my-posh, 美化]
     
     ```
     然后去[https://github.com/JanDeDobbeleer/oh-my-posh](https://github.com/JanDeDobbeleer/oh-my-posh)把项目下载下来，把里面的themes文件夹直接复制一份，
-    放到 **~/Documents/PowerShell** 这个目录中去。需要什么主题，修改上面命令的最后一行代码，把主题文件改成你喜欢的就行了。
+    放到 **~/Documents/PowerShell** 这个目录中去。需要什么主题，修改上面命令的最后一行代码，把主题文件改成你喜欢的就行了。   
+
+    **注意**   
+    有可能遇到无法识别 **oh-my-posh** 的问题，说它不是命令之类的错误，这个时候执行下面的命令
+    ``` shell
+    Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://ohmyposh.dev/install.ps1'))
+    ```
 
 - **4.安装nerdfont字体**
 
