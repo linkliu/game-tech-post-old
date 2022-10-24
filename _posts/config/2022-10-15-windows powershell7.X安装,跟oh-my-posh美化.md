@@ -26,8 +26,7 @@ tags: [Windows, powershell7, on-my-posh, 美化]
     [https://learn.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2](https://learn.microsoft.com/zh-cn/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2)
 
     如下图
-    <div align="center"><img src="https://linkliu.github.io/game-tech-post/assets/img/common/9.png"/></div>
-
+    ![diagram](https://linkliu.github.io/game-tech-post/assets/img/common/9.png){:  .shadow width = "90%" }
     * 使用 **winget** 安装   
     ``` shell
     winget install --id Microsoft.Powershell --source winget
@@ -37,7 +36,8 @@ tags: [Windows, powershell7, on-my-posh, 美化]
         - 打开windows terminal
         - 在窗口标题栏右键，然后点击设置
         - 然后选择启动，然后选择默认用powershell7启动，如下图
-        <div align="center"><img src="https://linkliu.github.io/game-tech-post/assets/img/common/10.png"/></div>  
+
+        ![diagram](https://linkliu.github.io/game-tech-post/assets/img/common/10.png){:  .shadow width = "90%" }
 
         - 然后关闭windows terminal,重新打开，就可以看到默认是以powershell启动  
    
@@ -93,8 +93,7 @@ tags: [Windows, powershell7, on-my-posh, 美化]
     [https://www.nerdfonts.com/font-downloads](https://www.nerdfonts.com/font-downloads)
 
     安装玩字体后，还是要在windows terminal的设置重选择你安装的字体，设置位置在下图: 
-    <div align="center"><img src="https://linkliu.github.io/game-tech-post/assets/img/common/11.png"/></div>
-
+    ![diagram](https://linkliu.github.io/game-tech-post/assets/img/common/11.png){:  .shadow width = "90%" }
     然后重新打开windows terminal看效果
 
 
