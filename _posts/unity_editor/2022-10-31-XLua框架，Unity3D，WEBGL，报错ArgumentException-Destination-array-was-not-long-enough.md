@@ -6,13 +6,13 @@ tags: [U3D, WEBGL, XLua, ArgumentException, Destination array was not long enoug
 
 ## Unity使用XLua框架，打WEBGL包，运行时报错：ArgumentException: Destination array was not long enough   
 具体的错误如下：   
-`dangerArgumentException: Destination array was not long enough. Check destIndex and length, and the array's lower bounds`
+> `dangerArgumentException: Destination array was not long enough. Check destIndex and length, and the array's lower bounds`
 {: .prompt-danger }   
 由于我们UI使用的时FGUI，所以这个错误的具体表现是：
-- [ ]错误表现
-  + [x]在编辑器中运行良好，没有任何问题
-  + [x]打包成WEBGL运行就报这个错，但不是每次都报错，
-  + [x]如果报错，那么UI逻辑是正常的，如果不报错，那么UI逻辑异常，比如按钮的绑定事件错乱
+- 错误表现
+  + [x] 在编辑器中运行良好，没有任何问题
+  + [x] 打包成WEBGL运行就报这个错，但不是每次都报错，
+  + [x] 如果报错，那么UI逻辑是正常的，如果不报错，那么UI逻辑异常，比如按钮的绑定事件错乱
 
 
 - **解决办法**   
