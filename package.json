@@ -25,5 +25,8 @@
     "stylelint": "^14.16.1",
     "stylelint-config-standard-scss": "^6.1.0",
     "uglify-js": "^3.17.4"
+  },
+  "dependencies": {
+    "html-proofer": "^0.0.1"
   }
 }
