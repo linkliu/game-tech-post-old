@@ -53,4 +53,12 @@ foreach ($ovpn_file in Get-ChildItem -Path $ovpn_dir -Filter *.ovpn) {
 your_name
 your_password
 ```
-3. `$log_file`是openvpn的日志输出文件，控制台会读取这个文件，然后比对字符串，看看是否已经成功连接。
+3. `$log_file`是openvpn的日志输出文件，控制台会读取这个文件，然后比对字符串，看看是否已经成功连接。   
+
+
+
+openvpn的参数：   
+`--config` 指定配置文件位置。   
+`--auth-user-pass` 指定用户和密码文件   
+`--connect-timeout 10` 指定timeout时间，这里表示10秒没有连上就timeout   
+`--connect-retry-max 3` 指定最多尝试次数，这里尝试3次如果失败就会退出程序   
