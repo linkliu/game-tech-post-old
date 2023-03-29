@@ -7,32 +7,52 @@ tags: [Ubuntu, openvpn, linux, 自动连接, ovpn文件, 指定目录]
 
 脚本如下所示：   
 ``` bash
-#!/bin/bash
+#!/usr/bin/env bash
 
-# 输入用户名和密码
-read -p "please input username:" USERNAME
-read -sp "please input password:" PASSWORD
+# 存放所有ovpn文件的目录
+ovpn_dir="/media/link/D/config/vpn/config/"
 
-# 配置文件目录
-CONFIG_DIR="/home/config/vpn"
+# 存放用户认证信息的文件
+auth_file="/media/link/D/config/vpn/auth.txt"
 
-# 循环尝试连接配置文件
-for FILE in $CONFIG_DIR/*.ovpn; do
-    echo "trying $FILE"
-    openvpn --config $FILE --auth-user-pass <(echo -e "$USERNAME\n$PASSWORD") --connect-timeout 10 &
-    # 检查是否连接成功
-    if ping -c 1 google.com &> /dev/null; then
-        echo "connect success！"
-        exit 0
-    else
-        echo "connect fail!, try next vpn config..."
-        # 断开连接
-        sudo pkill openvpn
-    fi
+# 存放临时日志的文件
+log_file="/media/link/D/config/vpn/temp.log"
+
+process_name=openvpn
+
+# 遍历ovpn目录下的所有ovpn文件
+for file in ${ovpn_dir}/*.ovpn; do
+    echo "Trying ${file}..."
+
+    # 删除旧的日志文件并创建新的
+    rm -f ${log_file} && touch ${log_file}
+
+    # 连接VPN并将所有日志重定向到临时日志文件
+    sudo openvpn --config ${file} --auth-user-pass ${auth_file} --connect-timeout 10 --connect-retry-max 3 > ${log_file} &
+    while true ; do
+        for line in $(cat ${log_file});do
+            if echo "${line}" | grep -q "Initialization Sequence Completed"; then
+                echo "connect success!"
+                while true; do
+                    read -p "Input 'stop' to exit" input
+                    if [ "${input}" == "stop" ]; then
+                        echo "Exiting..."
+                        exit 0
+                    fi
+                done
+            fi
+        done
+        sleep 0.2
+        process_id=$(pidof openvpn)
+        if [[ -z $process_id ]]; then
+            echo "openvpn exited! try next config!"
+            break
+        fi
+    done
+
+    # 如果连VPN接失败，则提示connect fail!
+    echo "connect fail!"
 done
-
-echo "cann't connect to the vpn server！"
-exit 1
 ```   
 
 <br>
