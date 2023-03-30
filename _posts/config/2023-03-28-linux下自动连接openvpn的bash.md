@@ -56,4 +56,4 @@ done
 ```   
 
 <br>
-`CONFIG_DIR` 指的时你的配置文件的目录，请把所有的.ovpn配置文件放在这里。这个教程使用的openvpn这个客户端，如果没有这个命令，请先安装openvpn，openvpn的安装方法，请去网上查找。
+这个教程使用的openvpn这个客户端，如果没有这个命令，请先安装openvpn，openvpn的安装方法，请去网上查找。
