@@ -5,7 +5,7 @@ theme: jekyll-theme-chirpy
 
 # Change the following value to '/PROJECT_NAME' ONLY IF your site type is GitHub Pages Project sites
 # and doesn't have a custom domain.
-baseurl: '/game-tech-post'
+baseurl: '/game-tech-post-old'
 
 # The language of the webpage › http://www.lingoes.net/en/translator/langcode.htm
 # If it has the same name as one of the files in folder `_data/locales`, the layout language will also be changed,
@@ -26,7 +26,7 @@ description: >-                        # used by seo meta and the atom feed
   游戏技术资料，游戏技术文档.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
-url: 'https://linkliu.github.io/game-tech-post'
+url: 'https://linkliu.github.io/game-tech-post-old'
 
 author: Link Liu                  # change to your full name
 
@@ -44,7 +44,7 @@ social:
   links:
     # The first element serves as the copyright owner's link
     - https://twitter.com/mucylulu_renhai      # change to your twitter homepage
-    - https://linkliu.github.io/game-tech-post/       # change to your github homepage
+    - https://linkliu.github.io/game-tech-post-old/       # change to your github homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
     # - https://www.linkedin.com/in/username
@@ -82,7 +82,7 @@ theme_mode: # [light|dark]
 img_cdn: ''
 
 # the avatar on sidebar, support local or CORS resources
-avatar: 'https://linkliu.github.io/game-tech-post/assets/img/me.png'
+avatar: 'https://linkliu.github.io/game-tech-post-old/assets/img/me.png'
 
 # boolean type, the global switch for TOC in posts.
 toc: true
