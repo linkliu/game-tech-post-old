@@ -1,0 +1,5 @@
+User-agent: *
+
+Disallow: /norobots/
+
+Sitemap: https://linkliu.github.io/game-tech-post-old/game-tech-post-old/sitemap.xml

@@ -1,0 +1,313 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="通过unity渲染纹理实现屏幕效果" /><meta name="author" content="Link Liu" /><meta property="og:locale" content="en" /><meta name="description" content="第八章 通过Unity渲染纹理实现屏幕效果 我们在这一章会学习下面的这些知识点： 设置屏幕效果脚本系统 在屏幕效果中使用亮度, 饱和度和对比度 在屏幕效果中使用基础的类Photoshop混合模式 屏幕效果中的覆盖混合模式" /><meta property="og:description" content="第八章 通过Unity渲染纹理实现屏幕效果 我们在这一章会学习下面的这些知识点： 设置屏幕效果脚本系统 在屏幕效果中使用亮度, 饱和度和对比度 在屏幕效果中使用基础的类Photoshop混合模式 屏幕效果中的覆盖混合模式" /><link rel="canonical" href="https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/" /><meta property="og:url" content="https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/" /><meta property="og:site_name" content="Game-Tech-Post" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-04-02T00:00:00+08:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="通过unity渲染纹理实现屏幕效果" /><meta name="twitter:site" content="@mucylulu_renhai" /><meta name="twitter:creator" content="@Link Liu" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Link Liu"},"dateModified":"2023-04-17T22:24:37+08:00","datePublished":"2023-04-02T00:00:00+08:00","description":"第八章 通过Unity渲染纹理实现屏幕效果 我们在这一章会学习下面的这些知识点： 设置屏幕效果脚本系统 在屏幕效果中使用亮度, 饱和度和对比度 在屏幕效果中使用基础的类Photoshop混合模式 屏幕效果中的覆盖混合模式","headline":"通过unity渲染纹理实现屏幕效果","mainEntityOfPage":{"@type":"WebPage","@id":"https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/"},"url":"https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/"}</script><title>通过unity渲染纹理实现屏幕效果 | Game-Tech-Post</title><link rel="apple-touch-icon" sizes="180x180" href="/game-tech-post-old/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/game-tech-post-old/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/game-tech-post-old/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/game-tech-post-old/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/game-tech-post-old/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Game-Tech-Post"><meta name="application-name" content="Game-Tech-Post"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/game-tech-post-old/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css"><link rel="stylesheet" href="/game-tech-post-old/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener('change', () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.notify(); } /* flipMode() */ } /* ModeToggle */ const modeToggle = new ModeToggle(); </script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/game-tech-post-old/" class="mx-auto"> <img src="https://linkliu.github.io/game-tech-post-old/assets/img/me.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/game-tech-post-old/">Game-Tech-Post</a></div><div class="site-subtitle font-italic">Focus on game develepment</div></div><ul class="w-100"><li class="nav-item"> <a href="/game-tech-post-old/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/game-tech-post-old/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/game-tech-post-old/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/game-tech-post-old/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/game-tech-post-old/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/linkliu" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/mucylulu_renhai" aria-label="twitter" target="_blank" rel="noopener noreferrer"> <i class="fab fa-twitter"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mucylulu','163.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/game-tech-post-old/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/game-tech-post-old/"> Home </a> </span> <span>通过unity渲染纹理实现屏幕效果</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>通过unity渲染纹理实现屏幕效果</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1680364800" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Apr 2, 2023 </em> </span> <span> Updated <em class="" data-ts="1681741477" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Apr 17, 2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://twitter.com/mucylulu_renhai">Link Liu</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="4312 words"> <em>23 min</em> read</span></div></div></div><div class="post-content"><h2 id="第八章-通过unity渲染纹理实现屏幕效果"><span class="mr-2">第八章 通过Unity渲染纹理实现屏幕效果</span><a href="#第八章-通过unity渲染纹理实现屏幕效果" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>我们在这一章会学习下面的这些知识点：</p><ul><li>设置屏幕效果脚本系统<li>在屏幕效果中使用亮度, 饱和度和对比度<li>在屏幕效果中使用基础的类Photoshop混合模式<li>屏幕效果中的覆盖混合模式</ul><hr /><p><br /></p><ul><li><strong>介绍</strong> <br /> 学习编写着色器最让人印象深刻的是创建你自己的屏幕效果的过程，也就是常说的后处理。有了这些屏幕效果，我们就可以用 <strong>Bloom</strong>，<strong>Motion Blur</strong> 和 <strong>HDR</strong> 效果等技术创建出一些惊奇的实时图像。当今游戏市场推出的大部分游戏在 <strong>景深（depth of field）</strong> 效果，<strong>辉光（bloom）</strong> 效果甚至 <strong>颜色修正（color correction）</strong> 效果上都大量使用了屏幕效果。 <br /> <br /> 通过这个章节，你将会学习如何构建一个如何去控制这些屏幕效果的脚本系统。我们将会涵盖 <strong>渲染纹理（Render Texture）</strong>，<strong>深度缓冲（depth buffer）</strong>，以及如何创建一个类Photoshop感的效果，从而去控制游戏的最终渲染图片的效果。通过为你的游戏使用屏幕效果，你不经可以完成你的着色器编写知识，同时你还将会拥有在Unity中创自己那些不可思议的渲染器的能力。</ul><hr /><p><br /></p><ul><li><strong>设置屏幕效果脚本系统</strong> <br /> 创建屏幕效果是这么一个过程，我们先抓取一张全屏的图像（或者纹理），然后用一个着色器在GPU中去处理它的像素，之后再把它发回给Unity的渲染器并且应用到游戏的整个渲染好的图像上去。这样的话就允许我们实时的在游戏的渲染图片上进行逐像素操作了，从而使我们对艺术效果有更广的控制。 <br /> <br /> 试想一下如果你不得不仔细检查并且调节你游戏中每一个游戏对象上的每个材质，而这么做仅仅是想调节游戏最终视效的对比度。尽管可行，但还是有点费事。通过利用屏幕效果，我们就可以整个的调整屏幕的最终效果，因此对于有些最终呈现我们能获得更强的 <strong>类Photoshop（Photoshop-like）</strong> 的控制。 <br /> <br /> 为了建立起一个屏幕效果系统并且使它成功运行，我们需要准备一个脚本来跟游戏当前的渲染图片进行通信，这个 <strong>渲染图片（rendered image）</strong> 就是Unity中的 <strong>渲染纹理（Render Texture）</strong>。利用这个脚本将渲染纹理传给着色器，我们能创建一个灵活的系统来创建屏幕效果。对于我们的第一个屏幕效果，我们将创建一个非常简单的灰度效果，这个效果可以让我们的游戏看起来是黑白的效果。让我们拭目以待。</ul><hr /><p><br /></p><ul><li><strong>始前准备</strong> <br /> 为了构建好我们的屏幕效果系统并且顺利运行，我们需要为当前的Unity工程创建一些资产。为了获得这些，跟着下面的步骤走就对了：<ul><li>1.在当前的项目中，我们创建一个名为 <strong>TestRenderImage.cs</strong> 的脚本。<li>2.创建一个新的着色器，命名为 <strong>ImageEffect.shader</strong>。<li>3.在场景中新建一个球体并且为其添加一个新的材质球，新材质可以任意，比如我们创建了一个简单的红色的，带有高光的材质球。<li>4.最后，创建一个新的方向光，然后保存场景。</ul><p>当我们把所有的资源准备好后，就等于是简单的设置好了场景，看起来就跟下图一样： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram84.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram84.png" alt="diagram" class="lazyload" data-proofer-ignore></a></p></ul><hr /><p><br /></p><ul><li><strong>操作步骤</strong> <br /> 为了让我们灰度屏幕效果能运行，我们需要一个脚本和着色器。我们将会在这里完成这新的两项并且给它们添加合适的代码从而生成我们的第一个屏幕效果。我们的首个任务就是完成C#脚本。这样可以让我们的整个系统跑起。在这之后，我们将会完成着色器的编写并且看到我们的屏幕效果。让我们通过下面的步骤完成我们的脚本和着色器：<ul><li>1.打开 <strong>TestRenderImage.cs</strong> 这个脚本并且添加一些变量好让我们能保存导入的游戏对象和数据。在 <strong>TestRenderImage</strong> 这个类的最上面添加下面的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="k">public</span> <span class="k">class</span> <span class="nc">TestRenderImage</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+  <span class="err">#</span><span class="n">region</span> <span class="n">Variables</span>
+  <span class="k">public</span> <span class="n">Shader</span> <span class="n">curShader</span><span class="p">;</span>
+  <span class="k">public</span> <span class="kt">float</span> <span class="n">grayScaleAmount</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+  <span class="k">public</span> <span class="n">Material</span> <span class="n">curMaterial</span><span class="p">;</span>
+  <span class="err">#</span><span class="n">endregion</span>
+  <span class="err">#</span><span class="n">region</span> <span class="n">Properties</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>2.当Unity编辑器没有运行的时候，为了让我们能够实时的编辑屏幕效果，我们需要在 <strong>TestRenderImage</strong> 类的声明上面添加下面这行代码： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram85.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram85.png" alt="diagram" class="lazyload" data-proofer-ignore></a><li>3.因为我们的屏幕效果是使用一个着色器在一个屏幕图像上进行逐像素操作，所以我们必须要创建一个材质来运行这个着色器。没有这个材质，我们就没有办法访问着色器的属性。因此，我们将创建一个C#的属性来检测材质，如果没有找到这个材质就创建一个。在第一个步骤的变量声明的下面输入下面的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre><td class="rouge-code"><pre><span class="cp">#region Properties
+</span><span class="n">Material</span> <span class="n">material</span>
+<span class="p">{</span>
+  <span class="k">get</span>
+  <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">curMaterial</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+      <span class="p">{</span>
+          <span class="n">curMaterial</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Material</span><span class="p">(</span><span class="n">CurShader</span><span class="p">);</span>
+          <span class="n">curMaterial</span><span class="p">.</span><span class="n">hideFlags</span> <span class="p">=</span> <span class="n">HideFlags</span><span class="p">.</span><span class="n">HideAndDontSave</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="n">curMaterial</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">#endregion
+</span></pre></table></code></div></div><li>4.现在我们想在脚本中设置一些检测来看看当前我们build的Unity游戏在平台上是否支持图像效果。如果在脚本开始运行的时候发现不支持，这个脚本将会被禁用掉：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(!</span><span class="n">SystemInfo</span><span class="p">.</span><span class="n">supportsImageEffects</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+      <span class="k">return</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">curShader</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">curShader</span><span class="p">.</span><span class="n">isSupported</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>事实上 <code class="language-plaintext highlighter-rouge">SystemInfo.supportsImageEffects</code> 在较新的Unity版本中，是一直返回 <strong>true</strong> 的，这个属性已经被废弃掉了【译者述】</p><li>5.为了能够从Unity的渲染器中抓取 <strong>渲染图像（Rendered Image）</strong>，我们需要利用下面这个Unity内建的 <strong>OnRenderImage()</strong> 方法。请输入下面的代码以便于我们能访问当前的 <strong>渲染纹理（Render Texture）</strong>：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">OnRenderImage</span><span class="p">(</span><span class="n">RenderTexture</span> <span class="n">src</span><span class="p">,</span> <span class="n">RenderTexture</span> <span class="n">dest</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">curShader</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_LuminosityAmount"</span><span class="p">,</span> <span class="n">grayScaleAmount</span><span class="p">);</span>
+      <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">material</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">else</span>
+  <span class="p">{</span>
+      <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>6.我们的屏幕效果有一个叫 <strong>grayScaleAmount</strong> 的变量，它可以控制我们想要的灰度屏幕效果的程度。所以，在这里我们需要控制它的取值范围是[<strong>0</strong> - <strong>1</strong>]，0表示没有灰度效果，1表示满程度的灰度效果。我们将会在 <strong>Update()</strong> 方法中进行这个操作，这意味着当脚本运行的时候会在游戏的每一帧去设置它们：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">grayScaleAmount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">grayScaleAmount</span><span class="p">,</span> <span class="m">0.0f</span><span class="p">,</span> <span class="m">1.0f</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>7.最后，当脚本运行的时候，对于我们创建的这些对象我们需要对它们进行一些清理，这样这个脚本就完成了：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">OnDisable</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">curMaterial</span><span class="p">)</span>
+  <span class="p">{</span>
+      <span class="nf">DestroyImmediate</span><span class="p">(</span><span class="n">curMaterial</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>这个时候，如果编译通过后，我们可以将脚本挂在到我们的摄像机中去了。让我们把 <strong>TestRenderImage.cs</strong> 这个脚本挂载到我们场景中的主摄像机上。你可以在编辑器上看到 <strong>grayScaleAmount</strong> 这个值和一个着色器的域，但这个脚本会在控制台窗口抛出一个错误。说它丢失了一个对象实例并且有可能会运行不正常。如果你回顾第四个步骤的话，可以看到我们做了一些检测来确定我们是否有着色器和当前的平台是否支持该着色器。我们还没有给这个屏幕效果脚本一个着色器让它能正常的工作，所以 <strong>curShader</strong> 变量是空的，所以抛出了这个错误。所以让我们继续完成着色器来完善我们的屏幕效果系统吧。</p><li>8.开始着手编写我们的着色器了，我们将会修改着色器的属性块，添加一些属性，好让我们能给这个着色器发送一些数据：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="n">Properties</span>
+<span class="p">{</span>
+  <span class="nf">_MainTex</span> <span class="p">(</span><span class="s">"Albedo (RGB)"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span> <span class="p">{}</span>
+  <span class="nf">_LuminosityAmount</span> <span class="p">(</span><span class="s">"GrayScale Amount"</span><span class="p">,</span> <span class="nf">Range</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span> <span class="p">=</span> <span class="m">1.0</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>9.现在我们的着色器将使用纯CG着色器代码编写，而不是使用Unity内建的 <strong>表面着色器（Surface Shader）</strong> 代码。因为这样我们的屏幕效果可以得到更好的优化，因为这里我们仅仅是需要处理 <strong>渲染纹理（Render Texture）</strong> 的像素而已。所以我们将在着色器中创建一个新的 <strong>通道块（Pass block）</strong> 并且添加一些我们之前没有看过的 <strong>#pragma</strong> 声明：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="n">Pass</span>
+<span class="p">{</span>
+  <span class="n">CGPROGRAM</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">vertex</span> <span class="n">vert_img</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">fragment</span> <span class="n">frag</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">fragmentoption</span> <span class="n">ARB_precision_hint_fastest</span>
+  <span class="err">#</span><span class="n">include</span> <span class="s">"UnityCG.cginc"</span>
+</pre></table></code></div></div><li>10.为了能够访问从Unity编辑器发送到着色器的数据，我们需要在 <strong>CGPROGRAM</strong> 中创建对应的变量：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre><td class="rouge-code"><pre><span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_MainTex</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_LuminosityAmount</span><span class="p">;</span>
+</pre></table></code></div></div><li>11.最后，就剩下去设置我们的 <strong>像素函数（pixel function）</strong> 了，在这个例子中就是 <strong>frag()</strong> 函数。这也是这个屏幕效果的关键代码。这个函数将会处理 <strong>渲染纹理（Render Texture）</strong> 的每一个像素并且给我们的 <strong>TestRenderImage.cs</strong> 脚本中返回一张新的图像：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre><td class="rouge-code"><pre><span class="n">fixed4</span> <span class="nf">frag</span><span class="p">(</span><span class="n">v2f_img</span> <span class="n">i</span><span class="p">)</span> <span class="p">:</span> <span class="n">COLOR</span>
+<span class="p">{</span>
+  <span class="n">fixed4</span> <span class="n">renderTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_MainTex</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">);</span>
+  <span class="kt">float</span> <span class="n">luminosity</span> <span class="p">=</span> <span class="m">0.299</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">r</span> <span class="p">+</span> <span class="m">0.587</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">g</span> <span class="p">+</span> <span class="m">0.114</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+  <span class="n">fixed4</span> <span class="n">finalColor</span> <span class="p">=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">renderTex</span><span class="p">,</span> <span class="n">luminosity</span><span class="p">,</span> <span class="n">_LuminosityAmount</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>【为了防止大家跟我一样，看的一头雾水，我在这里贴一下完整的着色器代码】：</p><div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre><td class="rouge-code"><pre><span class="n">Shader</span> <span class="s">"Custom/ImageEffect"</span>
+<span class="p">{</span>
+<span class="n">Properties</span>
+<span class="p">{</span>
+    <span class="nf">_MainTex</span> <span class="p">(</span><span class="s">"Albedo (RGB)"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span> <span class="p">{}</span>
+    <span class="nf">_LuminosityAmount</span> <span class="p">(</span><span class="s">"GrayScale Amount"</span><span class="p">,</span> <span class="nf">Range</span><span class="p">(</span><span class="m">0.0</span><span class="p">,</span> <span class="m">1</span><span class="p">))</span> <span class="p">=</span> <span class="m">1.0</span>
+<span class="p">}</span>
+<span class="n">SubShader</span>
+<span class="p">{</span>
+    <span class="n">Tags</span> <span class="p">{</span> <span class="s">"RenderType"</span><span class="p">=</span><span class="s">"Opaque"</span> <span class="p">}</span>
+    <span class="n">LOD</span> <span class="m">200</span>
+    <span class="n">Pass</span>
+    <span class="p">{</span>
+        <span class="n">CGPROGRAM</span>
+        <span class="err">#</span><span class="n">pragma</span> <span class="n">vertex</span> <span class="n">vert_img</span>
+        <span class="err">#</span><span class="n">pragma</span> <span class="n">fragment</span> <span class="n">frag</span>
+        <span class="err">#</span><span class="n">pragma</span> <span class="n">fragmentoption</span> <span class="n">ARB_precision_hint_fastest</span>
+        <span class="err">#</span><span class="n">include</span> <span class="s">"UnityCG.cginc"</span>
+        <span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_MainTex</span><span class="p">;</span>
+        <span class="k">fixed</span> <span class="n">_LuminosityAmount</span><span class="p">;</span>
+
+        <span class="n">fixed4</span> <span class="nf">frag</span><span class="p">(</span><span class="n">v2f_img</span> <span class="n">i</span><span class="p">)</span> <span class="p">:</span> <span class="n">COLOR</span>
+        <span class="p">{</span>
+            <span class="n">fixed4</span> <span class="n">renderTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_MainTex</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">);</span>
+            <span class="kt">float</span> <span class="n">luminosity</span> <span class="p">=</span> <span class="m">0.299</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">r</span> <span class="p">+</span> <span class="m">0.587</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">g</span> <span class="p">+</span> <span class="m">0.114</span> <span class="p">*</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">b</span><span class="p">;</span>
+            <span class="n">fixed4</span> <span class="n">finalColor</span> <span class="p">=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">renderTex</span><span class="p">,</span> <span class="n">luminosity</span><span class="p">,</span> <span class="n">_LuminosityAmount</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">ENDCG</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">FallBack</span> <span class="s">"Diffuse"</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p><br /> 当完成我们的着色器之后，返回到Unity编辑器让它编译着色器并且看看有没有遇到任何的错误。如果没有，就将这个新的着色器拖拽并且赋值给 <strong>TestRenderImage.cs</strong> 脚本，并且修改脚本上面的灰度变量的值。你应该可以在游戏窗口中看到游戏从有颜色变为灰色。下面的图片演示了这个屏幕效果： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram86.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram86.png" alt="diagram" class="lazyload" data-proofer-ignore></a> <br /> <br /> 当完成了这些之后，我们就有了一个非常方便的途径去测试新的屏幕效果着色器，这样就不用反复的去编写 <strong>屏幕效果系统（Screen Effect system）</strong> 的代码了。接下来让我们更深入的去了解一下在 <strong>渲染纹理（Render Texture）</strong> 中都发生了什么，并且在整个过程中是如何处理它的。</p></ul></ul><hr /><p><br /></p><ul><li><strong>原理介绍</strong> <br /> 为了完成我们的屏幕效果并且在Unity中能运行起来，我们需要创建一个脚本和一个着色器。这个脚本在Unity的编辑器上会实时刷新，它也负责从从主摄像机中捕获 <strong>渲染纹理（Render Texture）</strong> 并且把它传到着色器中。一旦这个渲染纹理到达着色器，我们就可以使用这个着色器进行逐像素操作。 <br /> <br /> 在脚本的开始运行的时候，我们进行了一些检测，这样是为了确保我们当前选择build的平台是否支持屏幕效果，是否支持我们的着色器。它们是当前平台是否支持屏幕效果和是否支持我们使用的着色器的实例。所以检查一下我们在 <strong>Start()</strong> 方法中所做的事情，确保如果当前平台不支持屏幕效果的时候不会有任何的报错。 <br /> <br /> 当我们的游戏脚本通过了检测之后，我们就通过调用Unity内建的 <strong>OnRenderImage()</strong> 方法来初始化屏幕效果系统。这个方法负责抓取渲染纹理，并且通过调用 <strong>Graphics.Blit()</strong> 方法将它传给着色器，并且将处理好的图像返回给Unity的渲染器。你可以通过下面的两个链接找到这两个方法更详细的信息：<ul><li><strong>OnRenderImage：</strong> <a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnRenderImage.html">https://docs.unity3d.com/ScriptReference/MonoBehaviour.OnRenderImage.html</a><li><strong>Graphics.Blit:</strong> <a href="https://docs.unity3d.com/ScriptReference/Graphics.Blit.html">https://docs.unity3d.com/ScriptReference/Graphics.Blit.html</a></ul><p><br /> 一旦当前的渲染纹理到达着色器后，着色器就通过 <strong>frag()</strong> 函数处理获取到的纹理，并且返回每一个像素最终颜色。 <br /> <br /> 可以看到这很强大，对于游戏的最终渲染图像，它能给我们类似于Photoshop这种工具一样控制。这些屏幕效果就像Photoshop中的层级概念一样在摄像机中按次序的工作。当你把这些屏幕效果依次前后叠好，它们就会按照排列顺序处理。这些仅仅是屏幕效果工作过程的一个大致步骤，但也是屏幕效果系统如何工作的核心。</p></ul><hr /><p><br /></p><ul><li><strong>额外内容</strong> <br /> 现在我们完成了一个简单的屏幕效果系统并且能够运行，让我们来了解一下我们能从Unity的渲染器中获得的一些其他的有用的信息： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram87.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram87.png" alt="diagram" class="lazyload" data-proofer-ignore></a> <br /> 我们可以通过打开Unity内建的深度模式来让当前游戏中的所有物体都有深度效果。一旦深度效果打开，我们就可以为很多不同的效果使用深度信息。让我们来了解一下这是怎么实现的：<ul><li>1.创建一个名为 <strong>SceneDepth_Effect</strong> 的着色器。然后双击打开编辑。<li>2.我们将会创建两个属性，主纹理属性和深度控制属性。深度控制属性用来控制场景深度的程度。在你的着色器中输入下面的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="n">Properties</span>
+<span class="p">{</span>
+    <span class="nf">_MainTex</span> <span class="p">(</span><span class="s">"Albedo (RGB)"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span> <span class="p">{}</span>
+    <span class="nf">_DepthPower</span> <span class="p">(</span><span class="s">"Depth Power"</span><span class="p">,</span> <span class="nf">Range</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">5</span><span class="p">))</span> <span class="p">=</span> <span class="m">1</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>3.接下来我们要在 <strong>CGPROGRAM</strong> 块中添加相应的变量。我们将添加一个叫 <strong>_CameraDepthTexture</strong> 的额外变量。这是Unity通过UnityCG <strong>cginclude</strong> 文件提供给我们的一个内建的变量。它提供了来自摄像机的深度信息：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre><td class="rouge-code"><pre><span class="n">Pass</span>
+<span class="p">{</span>
+  <span class="n">CGPROGRAM</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">vertex</span> <span class="n">vert_img</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">fragment</span> <span class="n">frag</span>
+  <span class="err">#</span><span class="n">pragma</span> <span class="n">fragmentoption</span> <span class="n">ARB_precision_hint_fastest</span>
+  <span class="err">#</span><span class="n">include</span> <span class="s">"UnityCG.cginc"</span>
+
+  <span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_MainTex</span><span class="p">;</span>
+  <span class="k">fixed</span> <span class="n">_DepthPower</span><span class="p">;</span>
+  <span class="n">sampler2D</span> <span class="n">_CameraDepthTexture</span><span class="p">;</span>
+</pre></table></code></div></div><li>4.我们将使用Unity提供的几个内建的函数来完成我们的 <strong>深度着色器（depth shader）</strong>，一个是 <strong>UNITY_SAMPLE_DEPTH()</strong>，另一个是 <strong>linear01Depth()</strong>。第一个函数从变量 <strong>_CameraDepthTexture</strong> 中获得深度信息并且为每一个像素生成一个单精度浮点值。<strong>Linear01Depth()</strong> 函数确保这个单精度浮点值能控制在 [<strong>0</strong> - <strong>1</strong>]范围内，因为这个值要作为指数，因为在场景内[<strong>0</strong> - <strong>1</strong>]之间的值能确保它的位置在摄像机内【翻译不太准确，有知道的请留言】：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="n">fixed4</span> <span class="nf">frag</span><span class="p">(</span><span class="n">v2f_img</span> <span class="n">i</span><span class="p">)</span> <span class="p">:</span> <span class="n">COLOR</span>
+<span class="p">{</span>
+  <span class="kt">float</span> <span class="n">d</span> <span class="p">=</span> <span class="nf">UNITY_SAMPLE_DEPTH</span><span class="p">(</span><span class="nf">tex2D</span><span class="p">(</span><span class="n">_CameraDepthTexture</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">xy</span><span class="p">));</span>
+  <span class="n">d</span> <span class="p">=</span> <span class="nf">pow</span><span class="p">(</span><span class="nf">Linear01Depth</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">_DepthPower</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>5.完成我们的着色器之后，让我们把注意力转移到我们的屏幕效果脚本上来。我们需要给脚本添加一个 <strong>depthPower</strong> 变量，这样我们就可以让用户在编辑器上去修改这个值：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="cp">#region Variables
+</span><span class="k">public</span> <span class="n">Shader</span> <span class="n">curShader</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">Material</span> <span class="n">curMaterial</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">depthPower</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+<span class="cp">#endregion
+</span></pre></table></code></div></div><li>6.我们的 <strong>OnRenderImage()</strong> 方法需要更新一下好让我们能够传递正确的值给着色器：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">OnRenderImage</span><span class="p">(</span><span class="n">RenderTexture</span> <span class="n">src</span><span class="p">,</span> <span class="n">RenderTexture</span> <span class="n">dest</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curShader</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_DepthPower"</span><span class="p">,</span> <span class="n">depthPower</span><span class="p">);</span>
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">material</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>7.要完成我们的屏幕深度效果，我们需要告诉Unity让它在当前的摄像机上打开深度渲染。我们可以通过设置摄像机的 <strong>depthTextureMode</strong> 属性来达到目的：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Camera</span><span class="p">.</span><span class="n">main</span><span class="p">.</span><span class="n">depthTextureMode</span> <span class="p">=</span> <span class="n">DepthTextureMode</span><span class="p">.</span><span class="n">Depth</span><span class="p">;</span>
+    <span class="n">depthPower</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">depthPower</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">5</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p><br /> 当代码写好后，保存你的脚本和着色器然后返回到Unity编辑器让它们完成编译。如果没有遇到什么错误，你将会看到如下图类似的结果： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram88.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram88.png" alt="diagram" class="lazyload" data-proofer-ignore></a></p></ul></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/game-tech-post-old/categories/shader/'>shader</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/game-tech-post-old/tags/u3d/" class="post-tag no-text-decoration" >U3D</a> <a href="/game-tech-post-old/tags/shader/" class="post-tag no-text-decoration" >Shader</a> <a href="/game-tech-post-old/tags/cookbook/" class="post-tag no-text-decoration" >Cookbook</a> <a href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/" class="post-tag no-text-decoration" >中文版</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E9%80%9A%E8%BF%87unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post&url=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E9%2580%259A%25E8%25BF%2587Unity%25E6%25B8%25B2%25E6%259F%2593%25E7%25BA%25B9%25E7%2590%2586%25E5%25AE%259E%25E7%258E%25B0%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E9%80%9A%E8%BF%87unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post&u=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E9%2580%259A%25E8%25BF%2587Unity%25E6%25B8%25B2%25E6%259F%2593%25E7%25BA%25B9%25E7%2590%2586%25E5%25AE%259E%25E7%258E%25B0%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E9%2580%259A%25E8%25BF%2587Unity%25E6%25B8%25B2%25E6%259F%2593%25E7%25BA%25B9%25E7%2590%2586%25E5%25AE%259E%25E7%258E%25B0%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F&text=%E9%80%9A%E8%BF%87unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/">游戏和屏幕效果</a><li><a href="/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/">通过unity渲染纹理实现屏幕效果</a><li><a href="/game-tech-post-old/posts/Unity-5.x-Shaders-and-Effects-Cookbook%E4%B8%AD%E6%96%87%E7%89%88%E7%BF%BB%E8%AF%91-%E7%AC%AC%E4%BA%8C%E7%89%88/">Unity 5.x shaders and effects cookbook中文版翻译（第二版）</a><li><a href="/game-tech-post-old/posts/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%9D%80%E8%89%B2%E5%99%A8%E9%80%82%E9%85%8D/">移动设备着色器适配</a><li><a href="/game-tech-post-old/posts/%E4%BD%BF%E7%94%A8%E8%A1%A8%E9%9D%A2%E7%9D%80%E8%89%B2%E5%99%A8%E7%9A%84%E5%B1%9E%E6%80%A7/">使用表面着色器的属性</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/game-tech-post-old/tags/u3d/">U3D</a> <a class="post-tag" href="/game-tech-post-old/tags/cookbook/">Cookbook</a> <a class="post-tag" href="/game-tech-post-old/tags/shader/">Shader</a> <a class="post-tag" href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/">中文版</a> <a class="post-tag" href="/game-tech-post-old/tags/c/">C#</a> <a class="post-tag" href="/game-tech-post-old/tags/openvpn/">openvpn</a> <a class="post-tag" href="/game-tech-post-old/tags/ovpn%E6%96%87%E4%BB%B6/">ovpn文件</a> <a class="post-tag" href="/game-tech-post-old/tags/unity3d/">Unity3D</a> <a class="post-tag" href="/game-tech-post-old/tags/unity/">Unity</a> <a class="post-tag" href="/game-tech-post-old/tags/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">右键菜单</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/game-tech-post-old/posts/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%9D%80%E8%89%B2%E5%99%A8%E9%80%82%E9%85%8D/"><div class="card-body"> <em class="small" data-ts="1677340800" data-df="ll" > Feb 26, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>移动设备着色器适配</h3><div class="text-muted small"><p> 第七章 移动设备着色器适配 在接下来的两章，我们将着手于让我们写的着色器对不同的平台都有较好的性能表现。我们不会讨论任何一个特殊的平台，我们将会分解着色器内的元素，这样的话我们就可以对它们进行调整，从而让它们对于移动平台有更好的优化并且通常来说对其他任何平台来说也更高效。这些技术涵盖了从 了解Unity提供的一些可以减少着色器内存溢出方面的内建变量 到 学习可以让我们的着色器代码更加高效的方...</p></div></div></a></div><div class="card"> <a href="/game-tech-post-old/posts/%E7%9D%80%E8%89%B2%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"><div class="card-body"> <em class="small" data-ts="1679500800" data-df="ll" > Mar 23, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>着色器的性能分析</h3><div class="text-muted small"><p> 着色器的性能分析 我们现在知道该如何减少色器可能出现的内存消耗，让我们来了解一下在场景中，如何在大量同时运行的游戏对象，着色器和脚本等包含的大量着色器中，找出有问题的着色器。要在整个游戏中去找到某一个单独的游戏对象或者着色器可能会让人有点望而却步，但是Unity给我们提供了它内建的性能分析工具。它可以让我们知道在游戏中每一帧都发生了什么，CPU和GPU资源使用情况。 通过使用性能分析工具...</p></div></div></a></div><div class="card"> <a href="/game-tech-post-old/posts/%E5%85%B3%E4%BA%8E%E4%BD%9C%E8%80%85/"><div class="card-body"> <em class="small" data-ts="1596556800" data-df="ll" > Aug 5, 2020 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>关于作者</h3><div class="text-muted small"><p> 关于作者 Alan Zucconi 是一个充满激情的开发者, 作者, 和一个激励的演讲者, 是开发者领域的佼佼者。 有着过去10年来相关领域的专业技能积累，并且决定在今后把精力都放在学术领域和游戏产业领域。作为一名自由职业者，他以非凡的创造力去探索如何让游戏更好的与艺术结合。 在此之前，他在伦敦帝国理工学院工作，在这里他发现了他教学和写作的激情。 他的头衔包括了 gravity puzz...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/game-tech-post-old/posts/windows%E4%B8%8B%E8%87%AA%E5%8A%A8%E8%BF%9E%E6%8E%A5openvpn%E7%9A%84powershell%E8%84%9A%E6%9C%AC/" class="btn btn-outline-primary" prompt="Older"><p>Windows下自动连接openvpn的powershell脚本</p></a> <a href="/game-tech-post-old/posts/%E5%9C%A8%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%E4%B8%AD%E4%BD%BF%E7%94%A8%E4%BA%AE%E5%BA%A6,-%E9%A5%B1%E5%92%8C%E5%BA%A6%E5%92%8C%E5%AF%B9%E6%AF%94%E5%BA%A6/" class="btn btn-outline-primary" prompt="Newer"><p>在屏幕效果中使用亮度, 饱和度和对比度</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/game-tech-post-old/tags/u3d/">U3D</a> <a class="post-tag" href="/game-tech-post-old/tags/cookbook/">Cookbook</a> <a class="post-tag" href="/game-tech-post-old/tags/shader/">Shader</a> <a class="post-tag" href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/">中文版</a> <a class="post-tag" href="/game-tech-post-old/tags/c/">C#</a> <a class="post-tag" href="/game-tech-post-old/tags/openvpn/">openvpn</a> <a class="post-tag" href="/game-tech-post-old/tags/ovpn%E6%96%87%E4%BB%B6/">ovpn文件</a> <a class="post-tag" href="/game-tech-post-old/tags/unity3d/">Unity3D</a> <a class="post-tag" href="/game-tech-post-old/tags/unity/">Unity</a> <a class="post-tag" href="/game-tech-post-old/tags/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">右键菜单</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://twitter.com/mucylulu_renhai">Link Liu</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Using the <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> theme <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/game-tech-post-old/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1.11.6/dayjs.min.js,npm/dayjs@1.11.6/locale/en.min.js,npm/dayjs@1.11.6/plugin/relativeTime.min.js,npm/dayjs@1.11.6/plugin/localizedFormat.min.js"></script> <script defer src="/game-tech-post-old/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/game-tech-post-old/app.js"></script>

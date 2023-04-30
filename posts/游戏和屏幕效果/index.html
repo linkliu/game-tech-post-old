@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.2" /><meta property="og:title" content="游戏和屏幕效果" /><meta name="author" content="Link Liu" /><meta property="og:locale" content="en" /><meta name="description" content="第九章 游戏和屏幕效果 当我们要创建可信和沉浸的游戏的时候，我们要考虑的不仅仅只有材料。屏幕效果也会改变游戏的整体感觉。这在电影里面非常常见，比如后期制作阶段中的调色。使用 第八章 通过Unity渲染纹理实现屏幕效果 中学到的知识，你也可以在游戏中实现这些技术。在这一章将会呈现两个有趣的效果；当然，你可以适当修改它们以适用于你的需求，也可以创建完全属于你自己屏幕效果。 在这一章，你将会学到下面的这些知识点： 创建一个老电影屏幕效果 创建一个夜视仪效果的屏幕效果" /><meta property="og:description" content="第九章 游戏和屏幕效果 当我们要创建可信和沉浸的游戏的时候，我们要考虑的不仅仅只有材料。屏幕效果也会改变游戏的整体感觉。这在电影里面非常常见，比如后期制作阶段中的调色。使用 第八章 通过Unity渲染纹理实现屏幕效果 中学到的知识，你也可以在游戏中实现这些技术。在这一章将会呈现两个有趣的效果；当然，你可以适当修改它们以适用于你的需求，也可以创建完全属于你自己屏幕效果。 在这一章，你将会学到下面的这些知识点： 创建一个老电影屏幕效果 创建一个夜视仪效果的屏幕效果" /><link rel="canonical" href="https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/" /><meta property="og:url" content="https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/" /><meta property="og:site_name" content="Game-Tech-Post" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-04-20T00:00:00+08:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="游戏和屏幕效果" /><meta name="twitter:site" content="@mucylulu_renhai" /><meta name="twitter:creator" content="@Link Liu" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Link Liu"},"dateModified":"2023-04-30T23:19:22+08:00","datePublished":"2023-04-20T00:00:00+08:00","description":"第九章 游戏和屏幕效果 当我们要创建可信和沉浸的游戏的时候，我们要考虑的不仅仅只有材料。屏幕效果也会改变游戏的整体感觉。这在电影里面非常常见，比如后期制作阶段中的调色。使用 第八章 通过Unity渲染纹理实现屏幕效果 中学到的知识，你也可以在游戏中实现这些技术。在这一章将会呈现两个有趣的效果；当然，你可以适当修改它们以适用于你的需求，也可以创建完全属于你自己屏幕效果。 在这一章，你将会学到下面的这些知识点： 创建一个老电影屏幕效果 创建一个夜视仪效果的屏幕效果","headline":"游戏和屏幕效果","mainEntityOfPage":{"@type":"WebPage","@id":"https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/"},"url":"https://linkliu.github.io/game-tech-post-old/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/"}</script><title>游戏和屏幕效果 | Game-Tech-Post</title><link rel="apple-touch-icon" sizes="180x180" href="/game-tech-post-old/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/game-tech-post-old/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/game-tech-post-old/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/game-tech-post-old/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/game-tech-post-old/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="Game-Tech-Post"><meta name="application-name" content="Game-Tech-Post"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/game-tech-post-old/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/all.min.css"><link rel="stylesheet" href="/game-tech-post-old/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1.1.0/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener('change', () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.notify(); } /* flipMode() */ } /* ModeToggle */ const modeToggle = new ModeToggle(); </script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/game-tech-post-old/" class="mx-auto"> <img src="https://linkliu.github.io/game-tech-post-old/assets/img/me.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/game-tech-post-old/">Game-Tech-Post</a></div><div class="site-subtitle font-italic">Focus on game develepment</div></div><ul class="w-100"><li class="nav-item"> <a href="/game-tech-post-old/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/game-tech-post-old/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/game-tech-post-old/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/game-tech-post-old/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/game-tech-post-old/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/linkliu" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/mucylulu_renhai" aria-label="twitter" target="_blank" rel="noopener noreferrer"> <i class="fab fa-twitter"></i> </a> <a href="javascript:location.href = 'mailto:' + ['mucylulu','163.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/game-tech-post-old/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/game-tech-post-old/"> Home </a> </span> <span>游戏和屏幕效果</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>游戏和屏幕效果</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1681920000" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Apr 20, 2023 </em> </span> <span> Updated <em class="" data-ts="1682867962" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Apr 30, 2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://twitter.com/mucylulu_renhai">Link Liu</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="3644 words"> <em>20 min</em> read</span></div></div></div><div class="post-content"><h2 id="第九章-游戏和屏幕效果"><span class="mr-2">第九章 游戏和屏幕效果</span><a href="#第九章-游戏和屏幕效果" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>当我们要创建可信和沉浸的游戏的时候，我们要考虑的不仅仅只有材料。屏幕效果也会改变游戏的整体感觉。这在电影里面非常常见，比如后期制作阶段中的调色。使用 <strong>第八章</strong> <strong><em>通过Unity渲染纹理实现屏幕效果</em></strong> 中学到的知识，你也可以在游戏中实现这些技术。在这一章将会呈现两个有趣的效果；当然，你可以适当修改它们以适用于你的需求，也可以创建完全属于你自己屏幕效果。 <br /> <br /> 在这一章，你将会学到下面的这些知识点：</p><ul><li>创建一个老电影屏幕效果<li>创建一个夜视仪效果的屏幕效果</ul><hr /><p><br /></p><ul><li><strong>介绍</strong> <br /> 如果你正在阅读这本书，你很可能玩过一两个游戏。即时游戏一方面会使玩家进入一个沉浸世界，让人觉得他们好像在现实世界玩游戏一样。现代的游戏利用的屏幕效果越多获得的沉浸感也越多。 <br /> <br /> 通过屏幕效果，我们可以将在某个确切环境中的心境从平静转为惊恐，仅仅只要改变屏幕看起来的样子。想象一下走进了某个关卡中的房间，然后游戏突然接管并且将你带进一个电影时刻。很多现代游戏都会使用不同的屏幕效果来改变不同时刻的一个心境。理解如何创建在游戏中使用的效果是我们学习编写着色器的下一个旅程。 <br /> <br /> 在这一章，我们将了解一些更加常用的游戏中的屏幕效果。你将会学习如何改变游戏的样子，把它从正常的样子改成一个老电影效果的样子，并且我们还会去了解大多数 <strong>FPS（first-person shooter第一人称射击）</strong> 游戏是如何使他们的夜视效果呈现在屏幕中的。通过这些知识点，我们将了解如何将这些效果跟游戏中的事件关联起来，好让游戏根据当前演出的需要去打开或者关闭这些特效。</ul><hr /><p><br /></p><h2 id="创建一个老电影屏幕效果"><span class="mr-2">创建一个老电影屏幕效果</span><a href="#创建一个老电影屏幕效果" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>很多游戏背景设定在不同的时期。有些发生在幻想世界或者科幻世界，更有甚者发生在旧西部，那个时候电影摄像机才刚刚发明并且人们看到的都是一些黑白电影或者棕褐色效果色调的电影。它们看起来格外不同，我们将在Unity中用屏幕效果来复制这种看起来的样子。 <br /> <br /> 获得这种效果需要一些步骤，如果要将整个屏幕变成黑或白或灰，我们需要将这个效果分解成不同的组成部分。如果我们分析一些相关的老电影的镜头，我们就可以开始做这个了。让我们来看看下面这张图片并且分解其中的元素，看看是那些构成了这个老电影的样子： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram98.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram98.png" alt="diagram" class="lazyload" data-proofer-ignore></a> <br /> <br /> 我们用一些在网上找到的图片构建了这个图片。像这样尝试利用Photoshop来构建图片总是一个很好的主意，它能为你的新的屏幕特效打好一个计划。在这个过程中它不仅能将我们需要用代码编写的元素告诉我们，还提供了一个快捷的方式让我们了解我们的屏幕效果需要使用哪一种混合模式和我们将要构建那些层级。本书这个知识点中我们为Photoshop创建的这些文件的支持网站在<a href="http://www.packtpub.com/support">http://www.packtpub.com/support</a>[<strong>已经失效(译者注)</strong>]。它是一个名为 <strong>OldFilmEffect_Research_Layout.psd</strong> 的文件。</p><hr /><p><br /></p><ul><li><strong>始前准备</strong> <br /> 我们现在目的明确，让我们看看最终效果的每一层都包含了什么然后为我们的着色器和C#脚本收集一些资源。<ul><li><strong>复古色调（Sepia tone）：</strong> 这是一个相对容易获得的效果，我们只需把原始渲染纹理的所有像素颜色变为一个单一的颜色范围。使用原始图像的亮度然后加上一个常量颜色就可以很容易获得。我们的第一层将会看起来跟下面的图片一样： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram99.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram99.png" alt="diagram" class="lazyload" data-proofer-ignore></a><li><strong>渐晕效果（Vignette effect）：</strong> 当一些古老的电影放映机放映老电影的时候，我们经常看到某种软边界[ <strong>我个人觉得翻译的不够准确</strong> ]围绕在老电影的四周。这是因为这种电影放映机使用的球形灯泡发出的光中间部位比周围要亮造成的。这种效果通常叫做渐晕效果并且是我们屏幕效果的第二层。我们可以通过在整个屏幕上覆盖一张纹理来获得这个效果。下面的图片演示了这一层看起来的样子，就是一张纹理： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram100.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram100.png" alt="diagram" class="lazyload" data-proofer-ignore></a><li><strong>灰尘和划痕（Dust and scratches）：</strong> 第三层也是最后一层就是我们的老电影屏幕效果中的灰尘和划痕。这一层将使用两种不同的平铺纹理，一种作为划痕然后另一种作为灰尘。原因就是我们将根据时间以不同的速度对这两种纹理做动画。这将会产生一种效果，就是当电影在播放的时候同时在老电影的每一帧中都会有一些细小的划痕和灰尘。下图演示了它们的纹理看起来效果： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram101.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram101.png" alt="diagram" class="lazyload" data-proofer-ignore></a></ul><p><br /> 我们用前面的那些纹理来准备好我们的 <strong>屏幕效果系统（screen effect system）</strong>。按照下面的步骤来：</p><ul><li>1.将 <strong>渐晕纹理（vignette texture）</strong> 和 <strong>灰尘划痕纹理（dust and scratches texture）</strong> 收集起来，就像我们前面看到的那几张。<li>2.创建一个名为 <strong>OldFilmEffect.cs</strong> 的新脚本和一个名为 <strong>OldFilmEffectShader.shader</strong> 的新着色器。<li>3.创建好这些新的文件后，给它们编写需要的代码来完成我们的屏幕效果系统并且顺利的跑起来。想知道具体如何做，可以参考 <strong>第八章</strong> <strong><em>通过Unity渲染纹理实现屏幕效果</em></strong> 来了解。</ul><p><br /> 最后，随着我们的屏幕效果系统完成并且顺利跑起来，以及收集好了我们的纹理，我们就可以开始复现老电影效果的制作过程了。</p></ul><hr /><p><br /></p><ul><li><strong>操作步骤</strong> <br /> 老电影屏幕效果的那些独特层级都很简单，但是将它们组合之后我们就能获得令人震惊的视觉效果。让我们缕一缕该怎么构建我们的脚本和着色器，之后我们就能逐行解析并且学习为什么可以那样写。此时，你应该有个设置好的屏幕效果系统而且能顺利运行，因为我们这个知识点不会涵盖如何设置这个系统。<ul><li>1.我们将添加脚本代码。我们要输入的第一个代码块将定义我们的变量，这些变量会在 <strong>检查器 (Inspector)</strong> 上显示，好让这个效果的使用者可以可以用想填的数据修改它们。如我们还想在检查器上显示我们效果用到的那些我们处理好的Photoshop文件，也可以在此添加它们的引用。在脚本中添加下面的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre><td class="rouge-code"><pre><span class="cp">#region Variables
+</span><span class="k">public</span> <span class="n">Shader</span> <span class="n">oldFilmShader</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="kt">float</span> <span class="n">OldFilmEffectAmount</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">contrast</span> <span class="p">=</span> <span class="m">3.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">distortion</span> <span class="p">=</span> <span class="m">0.2f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">cubicDistortion</span> <span class="p">=</span> <span class="m">0.6f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scale</span> <span class="p">=</span> <span class="m">0.8f</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="n">Color</span> <span class="n">sepiaColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">Texture2D</span> <span class="n">vignetteTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">vignetteAmount</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="n">Texture2D</span> <span class="n">scratchesTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scratchesYSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scratchesXSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+	
+<span class="k">public</span>  <span class="n">Texture2D</span> <span class="n">dustTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">dustYSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">dustXSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+	
+<span class="k">private</span> <span class="n">Material</span> <span class="n">curMaterial</span><span class="p">;</span>
+<span class="k">private</span> <span class="kt">float</span> <span class="n">randomValue</span><span class="p">;</span>
+<span class="cp">#endregion
+</span></pre></table></code></div></div><li>2.接下来，我们需要修改 <strong>OnRenderImage()</strong> 方法中的内容了。在这里，我们将把脚本中变量的数据传给着着色器好让着色器在处理渲染纹理的时候可以使用这些数据：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">OnRenderImage</span><span class="p">(</span><span class="n">RenderTexture</span> <span class="n">src</span><span class="p">,</span> <span class="n">RenderTexture</span> <span class="n">dest</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">oldFilmShader</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>	
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="s">"_SepiaColor"</span><span class="p">,</span> <span class="n">sepiaColor</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_VignetteAmount"</span><span class="p">,</span> <span class="n">vignetteAmount</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_EffectAmount"</span><span class="p">,</span> <span class="n">OldFilmEffectAmount</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_Contrast"</span><span class="p">,</span> <span class="n">contrast</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_cubicDistortion"</span><span class="p">,</span> <span class="n">cubicDistortion</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_distortion"</span><span class="p">,</span> <span class="n">distortion</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_scale"</span><span class="p">,</span><span class="n">scale</span><span class="p">);</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">vignetteTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_VignetteTex"</span><span class="p">,</span> <span class="n">vignetteTexture</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">scratchesTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_ScratchesTex"</span><span class="p">,</span> <span class="n">scratchesTexture</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_ScratchesYSpeed"</span><span class="p">,</span> <span class="n">scratchesYSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_ScratchesXSpeed"</span><span class="p">,</span> <span class="n">scratchesXSpeed</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">dustTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_DustTex"</span><span class="p">,</span> <span class="n">dustTexture</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_dustYSpeed"</span><span class="p">,</span> <span class="n">dustYSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_dustXSpeed"</span><span class="p">,</span> <span class="n">dustXSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_RandomValue"</span><span class="p">,</span> <span class="n">randomValue</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">material</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>3.为了完成特效的脚本部分，接下来只要确保把变量值控制在合理的范围而不是任意值就可以了。<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre><span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vignetteAmount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp01</span><span class="p">(</span><span class="n">vignetteAmount</span><span class="p">);</span>
+    <span class="n">OldFilmEffectAmount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">OldFilmEffectAmount</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">1.5f</span><span class="p">);</span>
+    <span class="n">randomValue</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(-</span><span class="m">1f</span><span class="p">,</span><span class="m">1f</span><span class="p">);</span>
+    <span class="n">contrast</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">contrast</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">4f</span><span class="p">);</span>
+    <span class="n">distortion</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">distortion</span><span class="p">,</span> <span class="p">-</span><span class="m">1f</span><span class="p">,</span><span class="m">1f</span><span class="p">);</span>
+    <span class="n">cubicDistortion</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">cubicDistortion</span><span class="p">,</span> <span class="p">-</span><span class="m">1f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+    <span class="n">scale</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p><strong>注意</strong> 作者这里只贴了关键代码，下面是完整的脚本代码[译者注]：</p><div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+</pre><td class="rouge-code"><pre><span class="k">using</span> <span class="nn">UnityEngine</span><span class="p">;</span>
+<span class="p">[</span><span class="n">ExecuteInEditMode</span><span class="p">]</span>
+<span class="k">public</span> <span class="k">class</span> <span class="nc">OldFilmEffect</span> <span class="p">:</span> <span class="n">MonoBehaviour</span>
+<span class="p">{</span>
+<span class="cp">#region Variables
+</span><span class="k">public</span> <span class="n">Shader</span> <span class="n">oldFilmShader</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="kt">float</span> <span class="n">OldFilmEffectAmount</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">contrast</span> <span class="p">=</span> <span class="m">3.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">distortion</span> <span class="p">=</span> <span class="m">0.2f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">cubicDistortion</span> <span class="p">=</span> <span class="m">0.6f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scale</span> <span class="p">=</span> <span class="m">0.8f</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="n">Color</span> <span class="n">sepiaColor</span> <span class="p">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">Texture2D</span> <span class="n">vignetteTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">vignetteAmount</span> <span class="p">=</span> <span class="m">1.0f</span><span class="p">;</span>
+	
+<span class="k">public</span> <span class="n">Texture2D</span> <span class="n">scratchesTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scratchesYSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">scratchesXSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+	
+<span class="k">public</span>  <span class="n">Texture2D</span> <span class="n">dustTexture</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">dustYSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+<span class="k">public</span> <span class="kt">float</span> <span class="n">dustXSpeed</span> <span class="p">=</span> <span class="m">10.0f</span><span class="p">;</span>
+	
+<span class="k">private</span> <span class="n">Material</span> <span class="n">curMaterial</span><span class="p">;</span>
+<span class="k">private</span> <span class="kt">float</span> <span class="n">randomValue</span><span class="p">;</span>
+<span class="cp">#endregion
+</span>	
+<span class="cp">#region Properties
+</span><span class="n">Material</span> <span class="n">material</span>
+<span class="p">{</span>
+    <span class="k">get</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">curMaterial</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">curMaterial</span> <span class="p">=</span> <span class="k">new</span> <span class="nf">Material</span><span class="p">(</span><span class="n">oldFilmShader</span><span class="p">);</span>
+            <span class="n">curMaterial</span><span class="p">.</span><span class="n">hideFlags</span> <span class="p">=</span> <span class="n">HideFlags</span><span class="p">.</span><span class="n">HideAndDontSave</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">curMaterial</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="cp">#endregion
+</span>
+<span class="k">private</span> <span class="k">void</span> <span class="nf">Start</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(!</span><span class="n">SystemInfo</span><span class="p">.</span><span class="n">supportsImageEffects</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">oldFilmShader</span> <span class="p">&amp;&amp;</span> <span class="p">!</span><span class="n">oldFilmShader</span><span class="p">.</span><span class="n">isSupported</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">enabled</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="nf">OnRenderImage</span><span class="p">(</span><span class="n">RenderTexture</span> <span class="n">src</span><span class="p">,</span> <span class="n">RenderTexture</span> <span class="n">dest</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">oldFilmShader</span> <span class="p">!=</span> <span class="k">null</span><span class="p">)</span>
+    <span class="p">{</span>	
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetColor</span><span class="p">(</span><span class="s">"_SepiaColor"</span><span class="p">,</span> <span class="n">sepiaColor</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_VignetteAmount"</span><span class="p">,</span> <span class="n">vignetteAmount</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_EffectAmount"</span><span class="p">,</span> <span class="n">OldFilmEffectAmount</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_Contrast"</span><span class="p">,</span> <span class="n">contrast</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_cubicDistortion"</span><span class="p">,</span> <span class="n">cubicDistortion</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_distortion"</span><span class="p">,</span> <span class="n">distortion</span><span class="p">);</span>
+        <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_scale"</span><span class="p">,</span><span class="n">scale</span><span class="p">);</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">vignetteTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_VignetteTex"</span><span class="p">,</span> <span class="n">vignetteTexture</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">scratchesTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_ScratchesTex"</span><span class="p">,</span> <span class="n">scratchesTexture</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_ScratchesYSpeed"</span><span class="p">,</span> <span class="n">scratchesYSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_ScratchesXSpeed"</span><span class="p">,</span> <span class="n">scratchesXSpeed</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="k">if</span><span class="p">(</span><span class="n">dustTexture</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetTexture</span><span class="p">(</span><span class="s">"_DustTex"</span><span class="p">,</span> <span class="n">dustTexture</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_dustYSpeed"</span><span class="p">,</span> <span class="n">dustYSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_dustXSpeed"</span><span class="p">,</span> <span class="n">dustXSpeed</span><span class="p">);</span>
+            <span class="n">material</span><span class="p">.</span><span class="nf">SetFloat</span><span class="p">(</span><span class="s">"_RandomValue"</span><span class="p">,</span> <span class="n">randomValue</span><span class="p">);</span>
+        <span class="p">}</span>
+			
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">,</span> <span class="n">material</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">Graphics</span><span class="p">.</span><span class="nf">Blit</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">dest</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="nf">Update</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">vignetteAmount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp01</span><span class="p">(</span><span class="n">vignetteAmount</span><span class="p">);</span>
+    <span class="n">OldFilmEffectAmount</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">OldFilmEffectAmount</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">1.5f</span><span class="p">);</span>
+    <span class="n">randomValue</span> <span class="p">=</span> <span class="n">Random</span><span class="p">.</span><span class="nf">Range</span><span class="p">(-</span><span class="m">1f</span><span class="p">,</span><span class="m">1f</span><span class="p">);</span>
+    <span class="n">contrast</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">contrast</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">4f</span><span class="p">);</span>
+    <span class="n">distortion</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">distortion</span><span class="p">,</span> <span class="p">-</span><span class="m">1f</span><span class="p">,</span><span class="m">1f</span><span class="p">);</span>
+    <span class="n">cubicDistortion</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">cubicDistortion</span><span class="p">,</span> <span class="p">-</span><span class="m">1f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+    <span class="n">scale</span> <span class="p">=</span> <span class="n">Mathf</span><span class="p">.</span><span class="nf">Clamp</span><span class="p">(</span><span class="n">scale</span><span class="p">,</span> <span class="m">0f</span><span class="p">,</span> <span class="m">1f</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">private</span> <span class="k">void</span> <span class="nf">OnDisable</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">curMaterial</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nf">DestroyImmediate</span><span class="p">(</span><span class="n">curMaterial</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>4.当我们的脚本完成之后，注意力转移到着色器上来。我们要在着色器上也创建跟脚本变量对应的着色器变量。这样的话可以让脚本跟着色器相互通信。在着色器的 <strong>属性块（Properties block）</strong> 中添加下面的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre> <span class="n">Properties</span>
+<span class="p">{</span>
+    <span class="nf">_MainTex</span> <span class="p">(</span><span class="s">"Base (RGB)"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span> <span class="p">{}</span>
+    <span class="nf">_VignetteTex</span> <span class="p">(</span><span class="s">"Vignette Texture"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span><span class="p">{}</span>
+    <span class="nf">_ScratchesTex</span> <span class="p">(</span><span class="s">"Scartches Texture"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span><span class="p">{}</span>
+    <span class="nf">_DustTex</span> <span class="p">(</span><span class="s">"Dust Texture"</span><span class="p">,</span> <span class="m">2D</span><span class="p">)</span> <span class="p">=</span> <span class="s">"white"</span><span class="p">{}</span>
+    <span class="nf">_SepiaColor</span> <span class="p">(</span><span class="s">"Sepia Color"</span><span class="p">,</span> <span class="n">Color</span><span class="p">)</span> <span class="p">=</span> <span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">)</span>
+    <span class="nf">_EffectAmount</span> <span class="p">(</span><span class="s">"Old Film Effect Amount"</span><span class="p">,</span> <span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span> <span class="p">=</span> <span class="m">1.0</span>
+    <span class="nf">_VignetteAmount</span> <span class="p">(</span><span class="s">"Vignette Opacity"</span><span class="p">,</span> <span class="nf">Range</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span> <span class="p">=</span> <span class="m">1.0</span>
+    <span class="nf">_ScratchesYSpeed</span> <span class="p">(</span><span class="s">"Scratches Y Speed"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">10.0</span>
+    <span class="nf">_ScratchesXSpeed</span> <span class="p">(</span><span class="s">"Scratches X Speed"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">10.0</span>
+    <span class="nf">_dustXSpeed</span> <span class="p">(</span><span class="s">"Dust X Speed"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">10.0</span>
+    <span class="nf">_dustYSpeed</span> <span class="p">(</span><span class="s">"Dust Y Speed"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">10.0</span>
+    <span class="nf">_RandomValue</span> <span class="p">(</span><span class="s">"Random Value"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">1.0</span>
+    <span class="nf">_Contrast</span> <span class="p">(</span><span class="s">"Contrast"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">3.0</span>
+
+    <span class="nf">_distortion</span> <span class="p">(</span><span class="s">"Distortion"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">0.2</span>
+    <span class="nf">_cubicDistortion</span> <span class="p">(</span><span class="s">"Cubic Distortion"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">0.6</span>
+    <span class="nf">_scale</span> <span class="p">(</span><span class="s">"Scale (Zoom)"</span><span class="p">,</span> <span class="n">Float</span><span class="p">)</span> <span class="p">=</span> <span class="m">0.8</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>5.接下来，跟往常一样，接下来在 <strong>CGPROGRAM</strong> 块中添加与属性块对应的变量好让属性块可以跟 <strong>CGPROGRAM</strong> 块通信：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre><td class="rouge-code"><pre><span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_MainTex</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_VignetteTex</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_ScratchesTex</span><span class="p">;</span>
+<span class="n">uniform</span> <span class="n">sampler2D</span> <span class="n">_DustTex</span><span class="p">;</span>
+<span class="n">fixed4</span> <span class="n">_SepiaColor</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_VignetteAmount</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_ScratchesYSpeed</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_ScratchesXSpeed</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_dustXSpeed</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_dustYSpeed</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_EffectAmount</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_RandomValue</span><span class="p">;</span>
+<span class="k">fixed</span> <span class="n">_Contrast</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">_distortion</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">_cubicDistortion</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">_scale</span><span class="p">;</span>
+</pre></table></code></div></div><li>6.现在，我们简单的将 <strong>frag()</strong> 函数内容修改一下好让我们能处理屏幕效果上的像素。让我们获取来自脚本的 <strong>渲染纹理（render texture）</strong> 和 <strong>渐晕纹理（vignette texture）</strong>：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">fixed4</span> <span class="nf">frag</span><span class="p">(</span><span class="n">v2f_img</span> <span class="n">i</span><span class="p">)</span> <span class="p">:</span> <span class="n">COLOR</span>
+<span class="p">{</span>
+  <span class="c1">//获得渲染纹理的颜色并且获取 v2f_img的uv</span>
+  <span class="n">half2</span> <span class="n">distortedUV</span> <span class="p">=</span> <span class="nf">barrelDistortion</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">);</span>
+  <span class="n">distortedUV</span> <span class="p">=</span> <span class="nf">half2</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="p">(</span><span class="n">_RandomValue</span> <span class="p">*</span> <span class="n">_SinTime</span><span class="p">.</span><span class="n">z</span> <span class="p">*</span> <span class="m">0.005</span><span class="p">));</span>
+  <span class="n">fixed4</span> <span class="n">renderTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_MainTex</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">);</span>
+      
+  <span class="c1">//获取渐晕纹理的像素</span>
+  <span class="n">fixed4</span> <span class="n">vignetteTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_VignetteTex</span><span class="p">,</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">);</span>
+</pre></table></code></div></div><li>7.我们接下来添加处理划痕和灰尘的代码：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre><td class="rouge-code"><pre><span class="c1">//处理划痕的UV和像素</span>
+<span class="n">half2</span> <span class="n">scratchesUV</span> <span class="p">=</span> <span class="nf">half2</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="p">(</span><span class="n">_RandomValue</span> <span class="p">*</span> <span class="n">_SinTime</span><span class="p">.</span><span class="n">z</span> <span class="p">*</span> <span class="n">_ScratchesXSpeed</span><span class="p">),</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="p">(</span><span class="n">_Time</span><span class="p">.</span><span class="n">x</span> <span class="p">*</span> <span class="n">_ScratchesYSpeed</span><span class="p">));</span>
+<span class="n">fixed4</span> <span class="n">scratchesTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_ScratchesTex</span><span class="p">,</span> <span class="n">scratchesUV</span><span class="p">);</span>
+<span class="c1">//处理灰尘的UV和像素</span>
+<span class="n">half2</span> <span class="n">dustUV</span> <span class="p">=</span> <span class="nf">half2</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="p">(</span><span class="n">_RandomValue</span> <span class="p">*</span> <span class="p">(</span><span class="n">_SinTime</span><span class="p">.</span><span class="n">z</span> <span class="p">*</span> <span class="n">_dustXSpeed</span><span class="p">)),</span> <span class="n">i</span><span class="p">.</span><span class="n">uv</span><span class="p">.</span><span class="n">y</span> <span class="p">+</span> <span class="p">(</span><span class="n">_RandomValue</span> <span class="p">*</span> <span class="p">(</span><span class="n">_SinTime</span><span class="p">.</span><span class="n">z</span> <span class="p">*</span> <span class="n">_dustYSpeed</span><span class="p">)));</span>
+<span class="n">fixed4</span> <span class="n">dustTex</span> <span class="p">=</span> <span class="nf">tex2D</span><span class="p">(</span><span class="n">_DustTex</span><span class="p">,</span> <span class="n">dustUV</span><span class="p">);</span>
+</pre></table></code></div></div><li>8.接下来处理深褐色色调：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre><td class="rouge-code"><pre><span class="c1">//使用YIQ值从渲染纹理中获取亮度值。</span>
+<span class="k">fixed</span> <span class="n">lum</span> <span class="p">=</span> <span class="nf">dot</span><span class="p">(</span><span class="nf">fixed3</span><span class="p">(</span><span class="m">0.299</span><span class="p">,</span> <span class="m">0.587</span><span class="p">,</span> <span class="m">0.114</span><span class="p">),</span> <span class="n">renderTex</span><span class="p">.</span><span class="n">rgb</span><span class="p">);</span>
+<span class="c1">//给亮度值加上一个常量颜色</span>
+<span class="n">fixed4</span> <span class="n">finalColor</span> <span class="p">=</span> <span class="n">lum</span> <span class="p">+</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">_SepiaColor</span><span class="p">,</span> <span class="n">_SepiaColor</span> <span class="p">+</span> <span class="nf">fixed4</span><span class="p">(</span><span class="m">0.1f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="m">0.1f</span><span class="p">,</span> <span class="m">1.0f</span><span class="p">),</span> <span class="n">_RandomValue</span><span class="p">);</span>
+<span class="n">finalColor</span> <span class="p">=</span> <span class="nf">pow</span><span class="p">(</span><span class="n">finalColor</span><span class="p">,</span> <span class="n">_Contrast</span><span class="p">);</span>
+</pre></table></code></div></div><li>9.最后，我们将所有的层和颜色都叠加到一块并将最终的屏幕效果纹理返回：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="c1">//创建一个白色的常量颜色，这样我们可以调节效果的不透明度。</span>
+  <span class="n">fixed3</span> <span class="n">constantWhite</span> <span class="p">=</span> <span class="nf">fixed3</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">);</span>
+  <span class="c1">//将不同的层混合到一起来创建最终的屏幕效果</span>
+  <span class="n">finalColor</span> <span class="p">=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">finalColor</span><span class="p">,</span> <span class="n">finalColor</span> <span class="p">*</span> <span class="n">vignetteTex</span><span class="p">,</span> <span class="n">_VignetteAmount</span><span class="p">);</span>
+  <span class="n">finalColor</span><span class="p">.</span><span class="n">rgb</span> <span class="p">*=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">scratchesTex</span><span class="p">,</span> <span class="n">constantWhite</span><span class="p">,</span> <span class="p">(</span><span class="n">_RandomValue</span><span class="p">));</span>
+  <span class="n">finalColor</span><span class="p">.</span><span class="n">rgb</span> <span class="p">*=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">dustTex</span><span class="p">.</span><span class="n">rgb</span><span class="p">,</span> <span class="n">constantWhite</span><span class="p">,</span> <span class="p">(</span><span class="n">_RandomValue</span> <span class="p">*</span> <span class="n">_SinTime</span><span class="p">.</span><span class="n">z</span><span class="p">));</span>
+  <span class="n">finalColor</span> <span class="p">=</span> <span class="nf">lerp</span><span class="p">(</span><span class="n">renderTex</span><span class="p">,</span> <span class="n">finalColor</span><span class="p">,</span> <span class="n">_EffectAmount</span><span class="p">);</span>
+  <span class="k">return</span> <span class="n">finalColor</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><li>10.当我们把所有代码都完成并且没有遇到错误，你应该有个跟下图很相似的结果。在编辑器中点击运行按钮，就可以看到灰尘效果和划痕效果，而且可以看到屏幕效果上的轻微的图片位移： <br /> <a href="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram102.png" class="popup img-link shadow"><img data-src="https://linkliu.github.io/game-tech-post/assets/img/shader_book/diagram102.png" alt="diagram" class="lazyload" data-proofer-ignore></a> <br /> <strong>注意</strong> 作者少说了一个函数，将下面的 <strong>barrelDistortion</strong> 函数添加到 <strong>frag()</strong> 函数上面[译者注]：<div class="language-c# highlighter-rouge"><div class="code-header"> <span data-label-text="C#"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre><td class="rouge-code"><pre><span class="n">float2</span> <span class="nf">barrelDistortion</span><span class="p">(</span><span class="n">float2</span> <span class="n">coord</span><span class="p">)</span> 
+<span class="p">{</span>
+    <span class="c1">// Inspired by SynthEyes lens distortion algorithm</span>
+    <span class="c1">// See http://www.ssontech.com/content/lensalg.htm</span>
+    <span class="n">float2</span> <span class="n">h</span> <span class="p">=</span> <span class="n">coord</span><span class="p">.</span><span class="n">xy</span> <span class="p">-</span> <span class="nf">float2</span><span class="p">(</span><span class="m">0.5</span><span class="p">,</span> <span class="m">0.5</span><span class="p">);</span>
+    <span class="kt">float</span> <span class="n">r2</span> <span class="p">=</span> <span class="n">h</span><span class="p">.</span><span class="n">x</span> <span class="p">*</span> <span class="n">h</span><span class="p">.</span><span class="n">x</span> <span class="p">+</span> <span class="n">h</span><span class="p">.</span><span class="n">y</span> <span class="p">*</span> <span class="n">h</span><span class="p">.</span><span class="n">y</span><span class="p">;</span>
+    <span class="kt">float</span> <span class="n">f</span> <span class="p">=</span> <span class="m">1.0</span> <span class="p">+</span> <span class="n">r2</span> <span class="p">*</span> <span class="p">(</span><span class="n">_distortion</span> <span class="p">+</span> <span class="n">_cubicDistortion</span> <span class="p">*</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">r2</span><span class="p">));</span>
+    <span class="k">return</span> <span class="n">f</span> <span class="p">*</span> <span class="n">_scale</span> <span class="p">*</span> <span class="n">h</span> <span class="p">+</span> <span class="m">0.5</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>–已经不用了</p></ul></ul></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/game-tech-post-old/categories/shader/'>shader</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/game-tech-post-old/tags/u3d/" class="post-tag no-text-decoration" >U3D</a> <a href="/game-tech-post-old/tags/shader/" class="post-tag no-text-decoration" >Shader</a> <a href="/game-tech-post-old/tags/cookbook/" class="post-tag no-text-decoration" >Cookbook</a> <a href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/" class="post-tag no-text-decoration" >中文版</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post&url=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E6%25B8%25B8%25E6%2588%258F%25E5%2592%258C%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post&u=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E6%25B8%25B8%25E6%2588%258F%25E5%2592%258C%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Flinkliu.github.io%2Fgame-tech-post-old%2Fgame-tech-post-old%2Fposts%2F%25E6%25B8%25B8%25E6%2588%258F%25E5%2592%258C%25E5%25B1%258F%25E5%25B9%2595%25E6%2595%2588%25E6%259E%259C%2F&text=%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%20-%20Game-Tech-Post" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/game-tech-post-old/posts/%E6%B8%B8%E6%88%8F%E5%92%8C%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/">游戏和屏幕效果</a><li><a href="/game-tech-post-old/posts/%E9%80%9A%E8%BF%87Unity%E6%B8%B2%E6%9F%93%E7%BA%B9%E7%90%86%E5%AE%9E%E7%8E%B0%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C/">通过unity渲染纹理实现屏幕效果</a><li><a href="/game-tech-post-old/posts/Unity-5.x-Shaders-and-Effects-Cookbook%E4%B8%AD%E6%96%87%E7%89%88%E7%BF%BB%E8%AF%91-%E7%AC%AC%E4%BA%8C%E7%89%88/">Unity 5.x shaders and effects cookbook中文版翻译（第二版）</a><li><a href="/game-tech-post-old/posts/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%9D%80%E8%89%B2%E5%99%A8%E9%80%82%E9%85%8D/">移动设备着色器适配</a><li><a href="/game-tech-post-old/posts/%E4%BD%BF%E7%94%A8%E8%A1%A8%E9%9D%A2%E7%9D%80%E8%89%B2%E5%99%A8%E7%9A%84%E5%B1%9E%E6%80%A7/">使用表面着色器的属性</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/game-tech-post-old/tags/u3d/">U3D</a> <a class="post-tag" href="/game-tech-post-old/tags/cookbook/">Cookbook</a> <a class="post-tag" href="/game-tech-post-old/tags/shader/">Shader</a> <a class="post-tag" href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/">中文版</a> <a class="post-tag" href="/game-tech-post-old/tags/c/">C#</a> <a class="post-tag" href="/game-tech-post-old/tags/openvpn/">openvpn</a> <a class="post-tag" href="/game-tech-post-old/tags/ovpn%E6%96%87%E4%BB%B6/">ovpn文件</a> <a class="post-tag" href="/game-tech-post-old/tags/unity3d/">Unity3D</a> <a class="post-tag" href="/game-tech-post-old/tags/unity/">Unity</a> <a class="post-tag" href="/game-tech-post-old/tags/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">右键菜单</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/game-tech-post-old/posts/%E7%A7%BB%E5%8A%A8%E8%AE%BE%E5%A4%87%E7%9D%80%E8%89%B2%E5%99%A8%E9%80%82%E9%85%8D/"><div class="card-body"> <em class="small" data-ts="1677340800" data-df="ll" > Feb 26, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>移动设备着色器适配</h3><div class="text-muted small"><p> 第七章 移动设备着色器适配 在接下来的两章，我们将着手于让我们写的着色器对不同的平台都有较好的性能表现。我们不会讨论任何一个特殊的平台，我们将会分解着色器内的元素，这样的话我们就可以对它们进行调整，从而让它们对于移动平台有更好的优化并且通常来说对其他任何平台来说也更高效。这些技术涵盖了从 了解Unity提供的一些可以减少着色器内存溢出方面的内建变量 到 学习可以让我们的着色器代码更加高效的方...</p></div></div></a></div><div class="card"> <a href="/game-tech-post-old/posts/%E7%9D%80%E8%89%B2%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"><div class="card-body"> <em class="small" data-ts="1679500800" data-df="ll" > Mar 23, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>着色器的性能分析</h3><div class="text-muted small"><p> 着色器的性能分析 我们现在知道该如何减少色器可能出现的内存消耗，让我们来了解一下在场景中，如何在大量同时运行的游戏对象，着色器和脚本等包含的大量着色器中，找出有问题的着色器。要在整个游戏中去找到某一个单独的游戏对象或者着色器可能会让人有点望而却步，但是Unity给我们提供了它内建的性能分析工具。它可以让我们知道在游戏中每一帧都发生了什么，CPU和GPU资源使用情况。 通过使用性能分析工具...</p></div></div></a></div><div class="card"> <a href="/game-tech-post-old/posts/%E5%85%B3%E4%BA%8E%E4%BD%9C%E8%80%85/"><div class="card-body"> <em class="small" data-ts="1596556800" data-df="ll" > Aug 5, 2020 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>关于作者</h3><div class="text-muted small"><p> 关于作者 Alan Zucconi 是一个充满激情的开发者, 作者, 和一个激励的演讲者, 是开发者领域的佼佼者。 有着过去10年来相关领域的专业技能积累，并且决定在今后把精力都放在学术领域和游戏产业领域。作为一名自由职业者，他以非凡的创造力去探索如何让游戏更好的与艺术结合。 在此之前，他在伦敦帝国理工学院工作，在这里他发现了他教学和写作的激情。 他的头衔包括了 gravity puzz...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/game-tech-post-old/posts/%E5%B1%8F%E5%B9%95%E6%95%88%E6%9E%9C%E4%B8%AD%E7%9A%84%E8%A6%86%E7%9B%96%E6%B7%B7%E5%90%88%E6%A8%A1%E5%BC%8F/" class="btn btn-outline-primary" prompt="Older"><p>屏幕效果中的覆盖混合模式</p></a><div class="btn btn-outline-primary disabled" prompt="Newer"><p>-</p></div></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/game-tech-post-old/tags/u3d/">U3D</a> <a class="post-tag" href="/game-tech-post-old/tags/cookbook/">Cookbook</a> <a class="post-tag" href="/game-tech-post-old/tags/shader/">Shader</a> <a class="post-tag" href="/game-tech-post-old/tags/%E4%B8%AD%E6%96%87%E7%89%88/">中文版</a> <a class="post-tag" href="/game-tech-post-old/tags/c/">C#</a> <a class="post-tag" href="/game-tech-post-old/tags/openvpn/">openvpn</a> <a class="post-tag" href="/game-tech-post-old/tags/ovpn%E6%96%87%E4%BB%B6/">ovpn文件</a> <a class="post-tag" href="/game-tech-post-old/tags/unity3d/">Unity3D</a> <a class="post-tag" href="/game-tech-post-old/tags/unity/">Unity</a> <a class="post-tag" href="/game-tech-post-old/tags/%E5%8F%B3%E9%94%AE%E8%8F%9C%E5%8D%95/">右键菜单</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2023 <a href="https://twitter.com/mucylulu_renhai">Link Liu</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Using the <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> theme <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/game-tech-post-old/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1.1.0/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1.11.6/dayjs.min.js,npm/dayjs@1.11.6/locale/en.min.js,npm/dayjs@1.11.6/plugin/relativeTime.min.js,npm/dayjs@1.11.6/plugin/localizedFormat.min.js"></script> <script defer src="/game-tech-post-old/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/game-tech-post-old/app.js"></script>
